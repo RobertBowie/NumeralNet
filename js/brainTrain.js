@@ -2,30 +2,53 @@ var brain = require('brain');
 var fs = require('fs');
 
 
-var dataFileBuffer  = fs.readFileSync(__dirname + '/../assets/train-images-idx3-ubyte');
-var labelFileBuffer = fs.readFileSync(__dirname + '/../assets/train-labels-idx1-ubyte');
-var pixelValues     = [];
+var testData  = fs.readFile(__dirname + '/../assets/mnist_test.csv', function(err, data){
+    if(err) {
+        throw err;
+    } else{
+       var array = data.toString().split("\n");
+    for(i in array) {
+        console.log(array[i]);
+    }
+}
+});
+// var trainingData = fs.readFile(__dirname + '/../assets/mnist_train.csv', function(err, data){
+//     if(err) {
+//         throw err;
+//     } else{
+//         return data
+//     }
+// });
+
+
+console.log(testData)
 
 // It would be nice with a checker instead of a hard coded 60000 limit here
-for (var image = 0; image <= 0; image++) { 
-    var pixels = [];
+// for (var image = 0; image <= 0; image++) { 
+//     var pixels = [];
 
-    for (var x = 0; x <= 27; x++) {
-        for (var y = 0; y <= 27; y++) {
-            // console.log(dataFileBuffer[(image * 28 * 28) + (x + (y * 28)) + 15]);
-            pixels.push(dataFileBuffer[(image * 28 * 28) + (x + (y * 28)) + 15]);
-        }
-    }
+//     for (var x = 0; x <= 27; x++) {
+//         for (var y = 0; y <= 27; y++) {
+//             // console.log(testData[(image * 28 * 28) + (x + (y * 28)) + 15]);
+//             pixels.push(testData[(image * 28 * 28) + (x + (y * 28)) + 15]);
+//         }
+//     }
 
-    var imageData  = {};
-    imageData[JSON.stringify(labelFileBuffer[image + 9])] = pixels;
-    for (var p = 0; p < 100; p++) {
-    console.log(parseInt(labelFileBuffer[image + p]));
-    }
-    // console.log(imageData);
-    pixelValues.push(imageData);
-}
-// console.log(pixelValues[0]);
+//     var imageData  = {};
+//     imageData[JSON.stringify(trainingData[image + 9])] = pixels;
+//     for (var p = 0; p < 100; p++) {
+//     console.log(parseInt(trainingData[image + p]));
+//     }
+//     // console.log(imageData);
+//     pixelValues.push(imageData);
+// }
+// // console.log(pixelValues[0]);
+
+
+
+
+
+
 
 // var net = new brain.NeuralNetwork();
 
