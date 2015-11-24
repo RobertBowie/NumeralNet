@@ -3,3 +3,5 @@ node_modules
 .floo
 .flooignore
 .gitignore
+
+assets/mnist_train.csv
