@@ -6,3 +6,5 @@ extern/
 node_modules/
 tmp
 vendor/
+
+!/home/leslie/Desktop/soloWeek/assets/train-images.idx3-ubyte

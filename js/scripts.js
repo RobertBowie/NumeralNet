@@ -81,7 +81,7 @@
             imgData.data[offset+3] = 255;
             // simply take red channel value. Not correct, but works for
             // black or white images.
-            grayscaleImg[y][x] = imgData.data[y*4*imgData.width + x*4 + 0] / 255;
+            grayscaleImg[y][x] = Math.abs(255-imgData.data[y*4*imgData.width + x*4 + 0]) / 255;
           }
         }
         return grayscaleImg;
@@ -131,8 +131,8 @@
                 mean += grayscaleImg[y*10 + v][x*10 + h];
               }
             }
-            mean = (1 - mean / 100); // average and invert
-            nnInput[x*28+y] = (mean - .5) / .5;
+            mean = (mean / 100); // average and invert
+            nnInput[x*28+y] = (mean);
 
           }
         }
