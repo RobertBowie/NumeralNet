@@ -2,16 +2,32 @@ var brain = require('brain');
 var fs = require('fs');
 
 
-var testData  = fs.readFile(__dirname + '/../assets/mnist_test.csv', function(err, data){
-    if(err) {
-        throw err;
-    } else{
-       var array = data.toString().split("\n");
-    for(i in array) {
-        console.log(array[i]);
+var testDataArray = [];
+
+fs.readFile(__dirname + '/../assets/mnist_test.csv', function(err, data){
+  if(err) {
+    throw err;
+  } else {
+    var csvData = data.toString().split("\n");
+    for(var i = 0; i < csvData.length; i++) {
+        
+      testDataArray.push(csvData[i].split(','));
+      //console.log(csvData[i].length);
+      
     }
-}
+  testData(testDataArray[0]);
+  //console.log(testDataArray[0]);
+  }
 });
+
+var testData = function(data) {
+  var label = parseInt(data.shift());
+  console.log(typeof label)
+  var decimalizedData = data.map(function(num){ return parseFloat((parseInt(num)/255).toFixed(2)) } );
+  // console.log(label, decimalizedData)
+}
+
+
 // var trainingData = fs.readFile(__dirname + '/../assets/mnist_train.csv', function(err, data){
 //     if(err) {
 //         throw err;
@@ -20,8 +36,6 @@ var testData  = fs.readFile(__dirname + '/../assets/mnist_test.csv', function(er
 //     }
 // });
 
-
-console.log(testData)
 
 // It would be nice with a checker instead of a hard coded 60000 limit here
 // for (var image = 0; image <= 0; image++) { 
