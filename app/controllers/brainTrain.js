@@ -15,14 +15,14 @@ fs.readFile(process.cwd() + '/assets/mnist_test.csv', function(err, data){
       //console.log(csvData[i].length);
       
     }
-  testData(testDataArray);
+  trainBrain(testDataArray);
   }
 });
 
 
 
 var net = new brain.NeuralNetwork();
-var testData = function(data) {
+var trainBrain = function(data) {
 
     var labels;
     var pictures;
@@ -33,19 +33,21 @@ var testData = function(data) {
       labels = parseInt(arr.shift())
       output[labels] = 1;
 
-
-      //converts 0-255 values to truncated decimals
       pictures = arr.map(function(num){ return parseInt(num) } );
       testTrainingData.push( { input: pictures, output: output } );
     });
     net.train(testTrainingData);
     // console.log(net.train(testTrainingData));
-    return json = net.toJSON();
+    
+    json = net.toJSON();
+    console.log('training')
+    //console.log(json)
+    return json;
   
 }
 
 var trainedNetwork = function(data) {
-  console.log('trained brain train')
+  console.log('Comparing data on trained brain')
   console.log(net.run(data));
 };
 
