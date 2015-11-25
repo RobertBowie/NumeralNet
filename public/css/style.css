@@ -1,1 +1,13 @@
-# Empty CSS file for your own CSS
+#results{
+  height: 280px;
+  width: 280px;
+  border: medium dashed green;
+  float: left;
+}
+
+#canvas {
+  width: 280px;
+  height: 280px;
+  float: left;
+  margin-right: 30px;
+}

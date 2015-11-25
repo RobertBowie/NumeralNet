@@ -190,12 +190,21 @@ function recognize() {
 
   console.log('recognize time: '+dt+'ms');
   console.log('nnInput: ', nnInput);
-  (function(){
+
+  function renderResults(data) {
+    $('#results').html(data).show;
+  }
+
+
+  (function() {
     $.ajax({
       type: 'GET', 
       url:'/trainedNetwork',
       data: {
         input: nnInput
+      },
+      success: function(data){
+        renderResults(data)
       }
     })
   })();
