@@ -226,7 +226,7 @@ function recognize() {
 
   (function() {
     $.ajax({
-      type: 'GET', 
+      type: 'POST', 
       url:'/trainedNetwork',
       data: {
         input: nnInput

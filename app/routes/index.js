@@ -12,10 +12,10 @@ module.exports = function (app) {
       });
 
    app.route('/trainedNetwork')
-    .get(function(req, res){
+    .post(function(req, res){
       // var data = req.body.data
-
-      brainTrain.trainedNetwork(req.query.input, function(data) {
+      //console.log(req.body['input[]'])
+      brainTrain.trainedNetwork(req.body['input[]'], function(data) {
         console.log('CB success! Data sent: ', data);
         res.send(data);
       });
