@@ -1,12 +1,15 @@
-//Robby, from our client side script we use jQuery and AJAX to send a signal to our express routes
+
+
 $('#trainedNetwork').click(function(){
+  var fixedData = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,185,159,151,60,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,222,254,254,254,254,241,198,198,198,198,198,198,198,198,170,52,0,0,0,0,0,0,0,0,0,0,0,0,67,114,72,114,163,227,254,225,254,254,254,250,229,254,254,140,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,66,14,67,67,67,59,21,236,254,106,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,253,209,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,233,255,83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,129,254,238,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,59,249,254,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,133,254,187,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,205,248,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,254,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,75,251,240,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,19,221,254,166,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,203,254,219,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,254,254,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,224,254,115,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,133,254,254,52,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,61,242,254,254,52,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,121,254,254,219,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,121,254,207,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   $.ajax({
-    type: 'POST', 
-    url:'/trainedNetwork'
+    type: 'GET', 
+    url:'/trainedNetwork',
+    data: {
+      input: fixedData
+    }
   })
 });
-
-
 var canvas;
 var context;
 
@@ -218,15 +221,47 @@ function erase() {
 }
 
 function findxy(res, e) {
-    if (res == 'down') {
-        if (clearBeforeDraw == true) {
-          context.clearRect(0,0,canvas.width,canvas.height);
-          document.getElementById('nnInput').innerHTML='';
-          document.getElementById('nnOut').innerHTML='';
-          paths = [];
-          clearBeforeDraw = false;
-          }
+  if (res == 'down') {
+    if (clearBeforeDraw == true) {
+      context.clearRect(0,0,canvas.width,canvas.height);
+      document.getElementById('nnInput').innerHTML='';
+      document.getElementById('nnOut').innerHTML='';
+      paths = [];
+      clearBeforeDraw = false;
+      }
 
+    if (e.pageX != undefined && e.pageY != undefined) {
+      currX = e.pageX-canvas.offsetLeft;
+      currY = e.pageY-canvas.offsetTop;
+    } else {
+      currX = e.clientX + document.body.scrollLeft
+              + document.documentElement.scrollLeft
+              - canvas.offsetLeft;
+      currY = e.clientY + document.body.scrollTop
+              + document.documentElement.scrollTop
+              - canvas.offsetTop;
+    }
+    //draw a circle
+    context.beginPath();
+    context.lineWidth = 1;
+    context.arc(currX,currY,lineWidth/2,0,2*Math.PI);
+    context.stroke();
+    context.closePath();
+    context.fill();
+
+    paths.push([[currX], [currY]]);
+    paintFlag = true;
+}
+  if (res == 'up' || res == "out") {
+      paintFlag = false;
+      //console.log(paths);
+  }
+
+if (res == 'move') {
+    if (paintFlag) {
+        // draw a line to previous point
+        prevX = currX;
+        prevY = currY;
         if (e.pageX != undefined && e.pageY != undefined) {
           currX = e.pageX-canvas.offsetLeft;
           currY = e.pageY-canvas.offsetTop;
@@ -238,44 +273,12 @@ function findxy(res, e) {
                   + document.documentElement.scrollTop
                   - canvas.offsetTop;
         }
-        //draw a circle
-        context.beginPath();
-        context.lineWidth = 1;
-        context.arc(currX,currY,lineWidth/2,0,2*Math.PI);
-        context.stroke();
-        context.closePath();
-        context.fill();
-
-        paths.push([[currX], [currY]]);
-        paintFlag = true;
+        currPath = paths[paths.length-1];
+        currPath[0].push(currX);
+        currPath[1].push(currY);
+        paths[paths.length-1] = currPath;
+        draw(context, color, lineWidth, prevX, prevY, currX, currY);
     }
-    if (res == 'up' || res == "out") {
-        paintFlag = false;
-        //console.log(paths);
-    }
-
-    if (res == 'move') {
-        if (paintFlag) {
-            // draw a line to previous point
-            prevX = currX;
-            prevY = currY;
-            if (e.pageX != undefined && e.pageY != undefined) {
-              currX = e.pageX-canvas.offsetLeft;
-              currY = e.pageY-canvas.offsetTop;
-            } else {
-              currX = e.clientX + document.body.scrollLeft
-                      + document.documentElement.scrollLeft
-                      - canvas.offsetLeft;
-              currY = e.clientY + document.body.scrollTop
-                      + document.documentElement.scrollTop
-                      - canvas.offsetTop;
-            }
-            currPath = paths[paths.length-1];
-            currPath[0].push(currX);
-            currPath[1].push(currY);
-            paths[paths.length-1] = currPath;
-            draw(context, color, lineWidth, prevX, prevY, currX, currY);
-        }
-    }
+}
 }
 init();
