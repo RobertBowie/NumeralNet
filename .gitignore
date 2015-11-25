@@ -5,3 +5,4 @@ node_modules
 .gitignore
 
 assets/mnist_train.csv
+testBrain.js
