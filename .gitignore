@@ -6,3 +6,5 @@ node_modules
 
 assets/mnist_train.csv
 testBrain.js
+secondBrainData.json
+trainedBrainData.json

@@ -1,8 +1,8 @@
 #results{
   height: 280px;
-  width: 280px;
-  border: medium dashed green;
+  width: 500px;
   float: left;
+  font-size: 1.25em;
 }
 
 #canvas {
@@ -10,4 +10,12 @@
   height: 280px;
   float: left;
   margin-right: 30px;
+}
+
+.digit{
+  font-size: 2.5em;
+}
+
+.percent{
+  font-size: 2em;
 }
