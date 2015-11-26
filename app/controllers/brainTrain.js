@@ -3,20 +3,23 @@ var fs = require('fs');
 
 var trainedBrainData;
 var testDataArray = [];
+var startTime = new Date();
 
 fs.readFile(process.cwd() + '/assets/mnist_test.csv', function(err, data){
   if(err) {
     throw err;
   } else {
     var csvData = data.toString().split("\n");
-    for(var i = 0; i < 2; i++) {
+    for(var i = 0; i < 59999; i++) {
       testDataArray.push(csvData[i].split(','));
     }
     trainBrain(testDataArray);
+    var endTime = new Date() - startTime;
+    console.log('Training took ' + endTime / 1000 +'s')
   }
 });
 
-var net = new brain.NeuralNetwork();
+var net = new brain.NeuralNetwork({hiddenLayers: [784, 392, 196]});
 
 var trainBrain = function(data) {
   var labels;
@@ -31,10 +34,15 @@ var trainBrain = function(data) {
     pictures = arr.map(function(num){ return parseInt(num) } );
     testTrainingData.push( { input: pictures, output: output } );
   });
-  console.log(net.train(testTrainingData));
+  net.train(testTrainingData, 
+    {log:true, 
+     logPeriod: 1, 
+     errorThresh: 0.04, 
+     learningRate: 0.05}
+  );
 
   json = JSON.stringify(net.toJSON());
-  fs.writeFile(process.cwd() + '/assets/secondBrainData.json', json, function(err){
+  fs.writeFile(process.cwd() + '/assets/thirdBrainData.json', json, function(err){
     if(err) throw err;
     console.log('written');
   } );
