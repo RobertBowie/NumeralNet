@@ -88,35 +88,35 @@ var recognize = function(){
    console.log(redValues);
 
   function renderResults(data) {
-  function topTwo (data) {
-    var index;
-    var max;
-    var highestProbs = [];
+    function topTwo (data) {
+      var index;
+      var max;
+      var highestProbs = [];
 
-    function topOne(data) {
-      index = data.indexOf(Math.max.apply(null, data));
-      max = Math.max.apply(null, data);
-      data.splice(index, 1, 0);
-      
-      return [index, (max*100).toPrecision(3) + '%'];
+      function topOne(data) {
+        index = data.indexOf(Math.max.apply(null, data));
+        max = Math.max.apply(null, data);
+        data.splice(index, 1, 0);
+        
+        return [index, (max*100).toPrecision(3) + '%'];
+      };
+
+      highestProbs.push(topOne(data));
+      highestProbs.push(topOne(data));
+
+      return highestProbs;
     };
-
-    highestProbs.push(topOne(data));
-    highestProbs.push(topOne(data));
-
-    return highestProbs;
-  };
 
     var highestProbs = topTwo(data)
     //[ [ 8, 1 ], [ 10, 0.99 ] ]
 
-   var formattedData = '<p>Your number: <span class="digit">'+ highestProbs[0][0] + 
-                       '</span> confidence: <span class="percent">' + 
-                       highestProbs[0][1] + '</span></p> \n' +
-                       '<p>Second possibility: <span class="digit">'+ 
-                       highestProbs[1][0] + '</span> confidence: ' + 
-                       '<span class="percent">' + highestProbs[1][1] +
-                       '</span></p>';
+    var formattedData = '<p>Your number: <span class="digit">'+ highestProbs[0][0] + 
+                        '</span> confidence: <span class="percent">' + 
+                        highestProbs[0][1] + '</span></p> \n' +
+                        '<p>Second possibility: <span class="digit">'+ 
+                        highestProbs[1][0] + '</span> confidence: ' + 
+                        '<span class="percent">' + highestProbs[1][1] +
+                        '</span></p>';
 
     $('#results').html(formattedData).show;
   };
