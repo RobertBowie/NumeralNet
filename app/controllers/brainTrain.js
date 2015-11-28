@@ -44,7 +44,7 @@ var startTime = new Date();
 //   json = JSON.stringify(net.toJSON());
 //   fs.writeFile(process.cwd() + '/assets/2BrainData.json', json, function(err){
 //     if(err) throw err;
-//     console.log('written');
+//     console.log('New brain ');
 //   } );
 //   console.log('training');
 // };

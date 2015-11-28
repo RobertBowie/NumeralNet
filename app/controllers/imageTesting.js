@@ -1,5 +1,5 @@
 var canvas = document.getElementById('canvas');
-var context = canvas.getContext('2d')
+var context = canvas.getContext('2d');
 //-----------------------------------------------------------------------
 // Utility Functions:
 //-----------------------------------------------------------------------
@@ -8,24 +8,24 @@ var erase = function() {
   context.clearRect(0,0, context.canvas.width, context.canvas.height)
 };
 
-function renderResults(data) {
-  function topTwo (data) {
-    var index;
-    var max;
-    var highestProbs = [];
+function topTwo (data) {
+  var index;
+  var max;
+  var highestProbs = [];
 
-    function topOne(data) {
-      index = data.indexOf(Math.max.apply(null, data));
-      max = Math.max.apply(null, data);
-      data.splice(index, 1, 0);
-      return [index, (max*100).toPrecision(3) + '%'];
-    };
-
-    highestProbs.push(topOne(data));
-    highestProbs.push(topOne(data));
-    return highestProbs;
+  function currTop(data) {
+    index = data.indexOf(Math.max.apply(null, data));
+    max = Math.max.apply(null, data);
+    data.splice(index, 1, 0);
+    return [index, (max*100).toPrecision(3) + '%'];
   };
 
+  highestProbs.push(currTop(data));
+  highestProbs.push(currTop(data));
+  return highestProbs;
+};
+
+function renderResults(data) {
   var highestProbs = topTwo(data);
 
   var formattedData = '<p>Your number: <span class="digit">'+ highestProbs[0][0] + 
@@ -97,7 +97,9 @@ var redraw = function() {
   }
 };
 
-//get numerical representation of canvas
+//-----------------------------------------------------------------------
+// Get numerical representation of canvas content:
+//-----------------------------------------------------------------------
 
 var recognize = function() {
   var image = context.getImageData(0,0,canvas.width, canvas.height)
@@ -109,17 +111,14 @@ var recognize = function() {
   shadowContext.drawImage(canvas, 0,0,280,280,4,4,20,20);
   document.body.appendChild(shadowCanvas);
   var teeny = shadowContext.getImageData(0,0,shadowCanvas.width, shadowCanvas.height)
-  console.log(teeny);
 
-  //pull out red pixels
-
+  // Pull out red pixels:
   var redValues = [];
   for(var i = 0; i < teeny.data.length; i = i + 4) {
     redValues.push(teeny.data[i]);
   }
 
-   console.log(redValues);
-
+  // Query server-side neural network:
   (function() {
     $.ajax({
       type: 'POST', 
