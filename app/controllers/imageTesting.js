@@ -79,7 +79,7 @@ var addClick = function(x,y,dragging) {
 };
 
 var redraw = function() {
-  context.clearRect(0,0, canvas.width, canvas.height);
+  // context.clearRect(0,0, canvas.width, canvas.height);
   context.strokeStyle ="#ff0000";
   context.lineJoin = "round";
   context.lineWidth = 13;
