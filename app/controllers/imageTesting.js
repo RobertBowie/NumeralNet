@@ -5,7 +5,10 @@ var context = canvas.getContext('2d');
 //-----------------------------------------------------------------------
 
 var erase = function() {
-  context.clearRect(0,0, context.canvas.width, context.canvas.height)
+  context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+  clickX = [];
+  clickY = [];
+  clickDrag = [];
 };
 
 function topTwo (data) {
@@ -79,14 +82,15 @@ var addClick = function(x,y,dragging) {
 };
 
 var redraw = function() {
-  // context.clearRect(0,0, canvas.width, canvas.height);
+  context.clearRect(0,0, canvas.width, canvas.height);
   context.strokeStyle ="#ff0000";
   context.lineJoin = "round";
   context.lineWidth = 13;
 
   for(var i = 0; i < clickX.length; i++){
-    context.beginPath();
+    
     if(clickDrag[i] && i){
+      context.beginPath();
       context.moveTo(clickX[i-1], clickY[i-1]);
     } else {
       context.moveTo(clickX[i], clickY[i]);
